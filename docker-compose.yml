@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: sportsEquipment
+      DB_USERNAME: postgres
+      DB_PASSWORD: Paredes@7
+
+  db:
+    image: postgres:15
+    container_name: laravel_db
+    restart: always
+    environment:
+      POSTGRES_DB: sportsEquipment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Paredes@7
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+volumes:
+  dbdata:
