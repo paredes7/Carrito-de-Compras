@@ -1,48 +1,54 @@
 <?php
-
+//para menejar registro y login
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class user extends Authenticatable //es loque permite que laravel autentique
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    //datos que se validaran
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'phone'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    //campos que se pueden asignar masivamente
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    //casting de campos
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    //para encryptar las contraseñas
+    public function setPasswordAttribute($value)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+
+    //Relaciones
+    // Un usuario puede tener muchos pedidos
+    public function orders()
+    {
+        return $this->hasMany(orders::class);
+    }
+
+    // Un usuario puede hacer muchas reseñas
+    public function reviews()
+    {
+        return $this->hasMany(reviews::class);
     }
 }

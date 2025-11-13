@@ -1,9 +1,9 @@
-import DangerButton from '@/Components/DangerButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
-import TextInput from '@/Components/TextInput';
+import DangerButton from '@/Components/Components-Laravel/DangerButton';
+import InputError from '@/Components/Components-Laravel/InputError';
+import InputLabel from '@/Components/Components-Laravel/InputLabel';
+import Modal from '@/Components/Components-Laravel/Modal';
+import SecondaryButton from '@/SecondaryButton';
+import TextInput from '@/Components/Components-Laravel/TextInput';
 import { useForm } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 

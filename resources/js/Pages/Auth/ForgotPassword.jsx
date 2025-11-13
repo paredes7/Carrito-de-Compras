@@ -1,6 +1,6 @@
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/Components-Laravel/InputError';
+import PrimaryButton from '@/Components/Components-Laravel/PrimaryButton';
+import TextInput from '@/Components/Components-Laravel/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 

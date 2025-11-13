@@ -11,22 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //tabla users combinada
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            //campos personalizados
+            $table->string('role')->default('customer');
+            $table->string('phone')->nullable();
+
+            //campos de breeze que conviene mantener
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // === Tabla PASSWORD RESET TOKENS (para "olvidé mi contraseña") ===
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // === Tabla SESSIONS (para manejar sesiones activas) ===
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
